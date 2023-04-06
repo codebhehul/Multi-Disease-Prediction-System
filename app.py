@@ -94,7 +94,7 @@ def validate_login():
     username = request.form.get("username")
     password = request.form.get("password")
 
-    if valid_credentials.get(username) == password:
+    if valid_credentials.get(username) == password: # type: ignore
         return redirect(url_for("homepage"))
     else:
         return redirect(url_for("login"))
@@ -126,7 +126,7 @@ def pneumonia():
 
 
 
-@app.route('/resultc', methods=['POST'])
+@app.route('/resultc', methods=['POST']) # type: ignore
 def resultc():
     if request.method == 'POST':
         firstname = request.form['firstname']
@@ -137,13 +137,13 @@ def resultc():
         age = request.form['age']
         file = request.files['file']
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            filename = secure_filename(file.filename) # type: ignore
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash('Image successfully uploaded and displayed below')
             img = cv2.imread('static/uploads/'+filename)
             img = cv2.resize(img, (224, 224))
             img = img.reshape(1, 224, 224, 3)
-            img = img/255.0
+            img = img/255.0 # type: ignore
             pred = covid_model.predict(img)
             if pred < 0.5:
                 pred = 0
@@ -157,7 +157,7 @@ def resultc():
             return redirect(request.url)
 
 
-@app.route('/resultbt', methods=['POST'])
+@app.route('/resultbt', methods=['POST']) # type: ignore
 def resultbt():
     if request.method == 'POST':
         firstname = request.form['firstname']
@@ -168,7 +168,7 @@ def resultbt():
         age = request.form['age']
         file = request.files['file']
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            filename = secure_filename(file.filename) # type: ignore
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash('Image successfully uploaded and displayed below')
             img = cv2.imread('static/uploads/'+filename)
@@ -188,7 +188,7 @@ def resultbt():
             return redirect(request.url)
 
 
-@app.route('/resultd', methods=['POST'])
+@app.route('/resultd', methods=['POST']) # type: ignore
 def resultd():
     if request.method == 'POST':
         firstname = request.form['firstname']
@@ -210,7 +210,7 @@ def resultd():
         return render_template('resultd.html', fn=firstname, ln=lastname, age=age, r=pred, gender=gender)
 
 
-@app.route('/resultbc', methods=['POST'])
+@app.route('/resultbc', methods=['POST']) # type: ignore
 def resultbc():
     if request.method == 'POST':
         firstname = request.form['firstname']
@@ -227,7 +227,7 @@ def resultbc():
 
         
 
-@app.route('/resulta', methods=['GET', 'POST'])
+@app.route('/resulta', methods=['GET', 'POST']) # type: ignore
 def resulta():
     if request.method == 'POST':
         print(request.url)
@@ -239,13 +239,13 @@ def resulta():
         age = request.form['age']
         file = request.files['file']
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            filename = secure_filename(file.filename) # type: ignore
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash('Image successfully uploaded and displayed below')
             img = cv2.imread('static/uploads/'+filename)
             img = cv2.resize(img, (176, 176))
             img = img.reshape(1, 176, 176, 3)
-            img = img/255.0
+            img = img/255.0 # type: ignore
             pred = alzheimer_model.predict(img)
             pred = pred[0].argmax()
             print(pred)
@@ -257,7 +257,7 @@ def resulta():
             return redirect('/')
 
 
-@app.route('/resultp', methods=['POST'])
+@app.route('/resultp', methods=['POST']) # type: ignore
 def resultp():
     if request.method == 'POST':
         firstname = request.form['firstname']
@@ -268,13 +268,13 @@ def resultp():
         age = request.form['age']
         file = request.files['file']
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            filename = secure_filename(file.filename) # type: ignore
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash('Image successfully uploaded and displayed below')
             img = cv2.imread('static/uploads/'+filename)
             img = cv2.resize(img, (150, 150))
             img = img.reshape(1, 150, 150, 3)
-            img = img/255.0
+            img = img/255.0 # type: ignore
             pred = pneumonia_model.predict(img)
             if pred < 0.5:
                 pred = 0
@@ -288,7 +288,7 @@ def resultp():
             return redirect(request.url)
 
 
-@app.route('/resulth', methods=['POST'])
+@app.route('/resulth', methods=['POST']) # type: ignore
 def resulth():
     if request.method == 'POST':
         firstname = request.form['firstname']
